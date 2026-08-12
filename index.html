@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QA Quest — O Jogo dos 30 Dias de QA</title>
+  <meta name="description" content="Aplicação web interativa e gamificada para aprender QA, Testes Funcionais, API, Automação e Git/CI-CD em 30 dias.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- CSS Style -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header Header & Stats Bar -->
+  <header class="game-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <span class="logo-icon">🎮</span>
+        <div>
+          <h1 class="logo-title">QA QUEST</h1>
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Jornada de 30 Dias de QA</span>
+        </div>
+      </div>
+
+      <div class="player-stats-bar">
+        <!-- Level & Rank -->
+        <div class="stat-box" style="border-color: var(--primary);">
+          <span class="stat-icon">🛡️</span>
+          <span id="player-level-title">QA Aprendiz 🐣</span>
+        </div>
+
+        <!-- Streak -->
+        <div class="stat-box" style="border-color: var(--warning);">
+          <span class="stat-icon">🔥</span>
+          <span id="player-streak">1 dia</span>
+        </div>
+
+        <!-- XP Bar -->
+        <div class="xp-bar-container">
+          <div class="xp-labels">
+            <span id="player-xp-val">0 XP</span>
+            <span id="xp-subtext">0 / 150 XP</span>
+          </div>
+          <div class="xp-progress-bg">
+            <div id="xp-fill" class="xp-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <button id="sound-toggle-btn" class="btn-icon" title="Alternar Som (Ativo/Mudo)">🔊</button>
+        <button id="achievements-btn" class="btn-icon" title="Ver Conquistas">🏆</button>
+        <button id="reset-progress-btn" class="btn-icon" title="Reiniciar Progresso" style="color: var(--danger);">🔄</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Weeks Nav -->
+      <div class="glass-panel">
+        <div class="panel-title">
+          <span>Capítulos (Semanas)</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">4 Semanas</span>
+        </div>
+        <ul id="weeks-nav-list" class="chapter-nav-list">
+          <!-- Renderizado via JS -->
+        </ul>
+      </div>
+
+      <!-- Badges Widget -->
+      <div class="glass-panel">
+        <div class="panel-title">
+          <span>Conquistas</span>
+          <span style="font-size: 0.8rem; color: var(--accent);">Ver Todas</span>
+        </div>
+        <div id="sidebar-badges-grid" class="badges-grid">
+          <!-- Renderizado via JS -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <section class="main-content">
+      
+      <!-- Days Roadmap Pill Bar -->
+      <div class="glass-panel" style="padding: 16px;">
+        <div class="days-roadmap-header">
+          <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-sub);">Trilha de Missões do Capítulo</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Clique no dia para navegar</span>
+        </div>
+        <div id="days-roadmap-pills" class="days-horizontal-scroll">
+          <!-- Renderizado via JS -->
+        </div>
+      </div>
+
+      <!-- Active Mission Card -->
+      <div id="mission-card-container" class="mission-card">
+        <!-- Renderizado via JS -->
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Modal: Conquistas Completo -->
+  <div id="achievements-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="btn-icon modal-close-btn">✕</button>
+      <h2 style="font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+        <span>🏆</span> Quadro de Conquistas do QA
+      </h2>
+      <div id="modal-achievements-list" style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- Renderizado via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Certificado de Conclusão -->
+  <div id="certificate-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 650px;">
+      <button class="btn-icon modal-close-btn">✕</button>
+      
+      <div class="certificate-preview">
+        <div style="font-size: 2.5rem;">📜</div>
+        <h2 class="certificate-title">CERTIFICADO DE CONCLUSÃO</h2>
+        <p style="font-size: 1rem; color: #475569;">Certificamos que</p>
+        <h3 id="cert-player-name" style="font-size: 1.6rem; font-weight: 800; color: #1e293b;">Futuro QA Lead</h3>
+        <p style="font-size: 0.95rem; color: #475569; line-height: 1.5;">
+          concluiu com êxito a jornada intensiva de 30 dias do <strong>QA QUEST</strong>, dominando os pilares de Fundamentos de QA, Testes Funcionais, Testes de API, Automação de Testes e Git/CI-CD.
+        </p>
+        <div style="margin-top: 16px; border-top: 2px dashed #cbd5e1; padding-top: 12px; display: flex; justify-content: space-between; font-size: 0.85rem; color: #64748b;">
+          <span>Data: <strong id="cert-date">12/08/2026</strong></span>
+          <span>Status: <strong>QA MASTER VERIFICADO ✓</strong></span>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="window.print()" style="margin-top: 12px;">🖨️ Imprimir / Salvar PDF</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/gameData.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
