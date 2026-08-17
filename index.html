@@ -2,7 +2,11 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0f172a">
   <title>QA Quest — O Jogo dos 30 Dias de QA</title>
   <meta name="description" content="Aplicação web interativa e gamificada para aprender QA, Testes Funcionais, API, Automação e Git/CI-CD em 30 dias.">
   
@@ -55,9 +59,14 @@
         <button id="sound-toggle-btn" class="btn-icon" title="Alternar Som (Ativo/Mudo)">🔊</button>
         <button id="achievements-btn" class="btn-icon" title="Ver Conquistas">🏆</button>
         <button id="reset-progress-btn" class="btn-icon" title="Reiniciar Progresso" style="color: var(--danger);">🔄</button>
+        <!-- Hamburger: only visible on mobile -->
+        <button id="sidebar-toggle-btn" class="btn-icon sidebar-toggle-btn" title="Menu de Capítulos" aria-label="Abrir menu de capítulos" aria-expanded="false">☰</button>
       </div>
     </div>
   </header>
+
+  <!-- Sidebar overlay (mobile only) -->
+  <div id="sidebar-overlay" class="sidebar-overlay" role="button" aria-label="Fechar menu"></div>
 
   <!-- Main Container -->
   <main class="app-container">

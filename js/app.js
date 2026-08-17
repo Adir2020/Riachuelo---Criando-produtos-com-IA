@@ -125,6 +125,45 @@ class QAQuestApp {
         if (modal) modal.classList.remove('active');
       });
     });
+
+    // ── Mobile Sidebar Toggle ──────────────────────────────────────────────
+    const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    const openSidebar = () => {
+      sidebar?.classList.add('open');
+      overlay?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (sidebarToggleBtn) {
+        sidebarToggleBtn.textContent = '✕';
+        sidebarToggleBtn.setAttribute('aria-expanded', 'true');
+      }
+    };
+
+    const closeSidebar = () => {
+      sidebar?.classList.remove('open');
+      overlay?.classList.remove('active');
+      document.body.style.overflow = '';
+      if (sidebarToggleBtn) {
+        sidebarToggleBtn.textContent = '☰';
+        sidebarToggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    if (sidebarToggleBtn) {
+      sidebarToggleBtn.addEventListener('click', () => {
+        const isOpen = sidebar?.classList.contains('open');
+        isOpen ? closeSidebar() : openSidebar();
+      });
+    }
+
+    if (overlay) {
+      overlay.addEventListener('click', closeSidebar);
+    }
+
+    // Store close function for use in week navigation
+    this._closeSidebar = closeSidebar;
   }
 
   renderAll() {
@@ -241,6 +280,8 @@ class QAQuestApp {
         this.state.currentDayNum = week.days[0].day;
         this.saveState();
         this.renderAll();
+        // Close sidebar drawer on mobile after selecting a week
+        if (this._closeSidebar) this._closeSidebar();
       });
 
       container.appendChild(li);
