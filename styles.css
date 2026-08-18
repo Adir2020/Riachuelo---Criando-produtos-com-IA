@@ -40,6 +40,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  max-width: 100%;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {
@@ -52,8 +57,10 @@ body {
   background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
 }
 
 /* Scrollbar Styling */
@@ -85,6 +92,8 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--glass-border);
   padding: 10px 16px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .header-container {
@@ -94,7 +103,8 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  width: 100%;
 }
 
 .logo-area {
@@ -121,8 +131,11 @@ body {
 .player-stats-bar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
+  flex: 1;
+  justify-content: flex-end;
+  min-width: 0;
 }
 
 .stat-box {
@@ -145,7 +158,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 160px;
+  min-width: 120px;
+  max-width: 200px;
+  flex: 1;
 }
 
 .xp-labels {
@@ -211,6 +226,8 @@ body {
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: 24px;
+  width: 100%;
+  overflow: hidden;
 }
 
 @media (max-width: 900px) {
@@ -218,6 +235,7 @@ body {
     grid-template-columns: 1fr;
     padding: 0 12px 80px;
     margin: 12px auto;
+    width: 100%;
   }
 }
 
@@ -726,8 +744,8 @@ body {
 
 .fake-products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
 }
 
 .fake-product-card {
@@ -780,12 +798,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .postman-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  width: 100%;
 }
 
 .postman-method {
@@ -925,7 +946,7 @@ body {
 }
 
 /* ==========================================================================
-   RESPONSIVE — MOBILE FIRST (max-width: 640px)
+   RESPONSIVE — MOBILE FIRST (max-width: 900px)
    ========================================================================== */
 
 @media (max-width: 900px) {
@@ -983,7 +1004,8 @@ body {
 
   /* Stats bar wraps more gracefully */
   .player-stats-bar {
-    gap: 8px;
+    gap: 6px;
+    flex-wrap: nowrap;
   }
 
   .stat-box {
@@ -992,7 +1014,8 @@ body {
   }
 
   .xp-bar-container {
-    min-width: 100px;
+    min-width: 80px;
+    flex: 1;
   }
 
   /* Main content */
@@ -1013,16 +1036,52 @@ body {
   .btn-primary {
     width: 100%;
   }
+
+  /* Prevent theory box overflow */
+  .theory-box {
+    font-size: 0.9rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Glass panel smaller padding */
+  .glass-panel {
+    padding: 14px;
+  }
+
+  /* Minigame container */
+  .minigame-container {
+    padding: 14px;
+    overflow: hidden;
+  }
+
+  /* Fake ecommerce inner */
+  .fake-ecommerce {
+    padding: 14px;
+  }
+
+  /* Postman response smaller */
+  .postman-response-screen {
+    font-size: 0.78rem;
+  }
 }
 
 @media (max-width: 480px) {
   /* Very small screens */
   .header-container {
     gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .logo-area {
+    flex-shrink: 0;
+    gap: 8px;
   }
 
   .player-stats-bar {
-    gap: 6px;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow: hidden;
   }
 
   .stat-box {
@@ -1030,7 +1089,9 @@ body {
   }
 
   .xp-bar-container {
-    min-width: 80px;
+    min-width: 60px;
+    max-width: none;
+    flex: 1;
   }
 
   .mission-header {
@@ -1044,7 +1105,8 @@ body {
   }
 
   .mission-title-group h2 {
-    font-size: 1.05rem;
+    font-size: 1rem;
+    word-break: break-word;
   }
 
   /* Bug hunt on tiny screens */
@@ -1054,12 +1116,12 @@ body {
 
   /* Day pills slightly smaller */
   .day-pill {
-    min-width: 56px;
-    padding: 10px 8px;
+    min-width: 52px;
+    padding: 9px 6px;
   }
 
   .day-pill-number {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
   }
 
   /* Postman: stack send button below url */
@@ -1078,14 +1140,56 @@ body {
 
   /* Modal padding */
   .modal-container {
-    padding: 16px;
+    padding: 14px;
+    max-height: 95dvh;
+    max-height: 95vh;
   }
 
   .certificate-preview {
-    padding: 16px;
+    padding: 14px;
   }
 
   .certificate-title {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  /* Glass panel on tiny screens */
+  .glass-panel {
+    padding: 12px;
+    border-radius: var(--radius-md);
+  }
+
+  /* App container tighter */
+  .app-container {
+    padding: 0 8px 80px;
+    margin: 8px auto;
+  }
+
+  /* Task items smaller */
+  .task-item {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+  }
+
+  /* Quiz options smaller */
+  .quiz-option-btn {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  /* Theory box smaller text */
+  .theory-box {
+    font-size: 0.85rem;
+    padding: 12px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* btn-icon slightly smaller */
+  .btn-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 1rem;
   }
 }
